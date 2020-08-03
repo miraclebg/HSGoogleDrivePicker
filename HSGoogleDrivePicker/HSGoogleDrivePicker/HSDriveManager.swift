@@ -30,7 +30,7 @@ private let kKeychainItemName = "Drive API"
     //* Default is 'Sign out'*
     open var signOutLabel:String = "Sign out"
     
-    private var service: GTLRDriveService?
+    open var service: GTLRDriveService?
     
     override init() {
 
@@ -99,7 +99,7 @@ private let kKeychainItemName = "Drive API"
         
         
         query.pageSize = maxResults
-        
+
         service?.executeQuery(query, completionHandler: handler)
         
     }

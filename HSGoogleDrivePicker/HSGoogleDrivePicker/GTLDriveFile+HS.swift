@@ -14,7 +14,7 @@ extension GTLRDrive_File {
         guard let identifier = identifier, identifier.count != 0  else {
             return nil
         }
-
+        
         let urlString = "https://www.googleapis.com/drive/v3/files/\(identifier)?alt=media"
         return urlString
     }
@@ -26,3 +26,4 @@ extension GTLRDrive_File {
         return URL.init(string: downloadUrlString)
     }
 }
+

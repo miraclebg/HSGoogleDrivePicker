@@ -44,7 +44,7 @@ open class HSGIDSignInHandler: NSObject, GIDSignInDelegate {
             //NB - if you get a crash here, this probably indicates problems with your GoogleService-Info.plist not having the correct permissions
             //
             signIn.signIn()
-
+            
             
         })
         
@@ -73,7 +73,7 @@ open class HSGIDSignInHandler: NSObject, GIDSignInDelegate {
             print("Unable to get signIn clientID")
             return nil
         }
-
+        
         return signIn
     }
     
@@ -83,11 +83,11 @@ open class HSGIDSignInHandler: NSObject, GIDSignInDelegate {
         guard let signIn = HSGIDSignInHandler.validSignInInstance() else {
             return
         }
-  
+        
         signIn.delegate = self
         
         let currentScopes = signIn.scopes
-        let newScopes = (currentScopes ?? []) + [kGTLRAuthScopeDriveReadonly]
+        let newScopes = (currentScopes ?? []) + [kGTLRAuthScopeDrive]
         signIn.scopes = newScopes
         
         signIn.restorePreviousSignIn()
@@ -115,14 +115,14 @@ open class HSGIDSignInHandler: NSObject, GIDSignInDelegate {
         } else {
             authoriser = nil
             NotificationCenter.default.post(name: HSGIDSignInHandler.hsGIDSignInFailedNotification, object: self)
-
+            
             //silent signin generates this error
             if let code = (error as NSError?)?.code {
                 if code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
                     return
                 }
             }
- 
+            
             if let viewController = viewController {
                 let alert = UIAlertController.init(title: "Unable to sign in to Drive",
                                                    message: error?.localizedDescription,
@@ -139,3 +139,4 @@ open class HSGIDSignInHandler: NSObject, GIDSignInDelegate {
         NotificationCenter.default.post(name: HSGIDSignInHandler.hsGIDSignInChangedNotification, object: self)
     }
 }
+

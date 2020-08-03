@@ -45,12 +45,12 @@ open class HSDriveFileViewer: UIViewController, UITableViewDataSource, UITableVi
     }()
     
     init() {
-
+        
         super.init(nibName: nil, bundle: nil)
         self.title = "Google Drive"
-  
+        
         modalPresentationStyle = UIModalPresentationStyle.pageSheet
-
+        
         folderTrail = ["root"]
     }
     
@@ -90,24 +90,24 @@ open class HSDriveFileViewer: UIViewController, UITableViewDataSource, UITableVi
         
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(getFiles), for: .valueChanged)
-
+        
         
         view.addSubview(tableView)
         table = tableView
         
         let views:[String : Any] = [
-                     "toolbar" : toolbar,
-                     "tableView" : tableView
-                     ]
+            "toolbar" : toolbar,
+            "tableView" : tableView
+        ]
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[toolbar]|", options: .directionLeftToRight, metrics: nil, views: views))
-
-
+        
+        
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[tableView]|", options: .directionLeftToRight, metrics: nil, views: views))
-
-
+        
+        
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[toolbar(44)][tableView]|", options: .directionLeftToRight, metrics: nil, views: views))
-
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(authFailed), name: HSGIDSignInHandler.hsGIDSignInFailedNotification, object: nil)
         
@@ -141,7 +141,7 @@ open class HSDriveFileViewer: UIViewController, UITableViewDataSource, UITableVi
     }
     
     override open func viewWillDisappear(_ animated: Bool) {
-
+        
         super.viewWillDisappear(animated)
     }
     
@@ -220,7 +220,7 @@ open class HSDriveFileViewer: UIViewController, UITableViewDataSource, UITableVi
         }
         else {
             output?.text = ""
-           table?.isHidden = true
+            table?.isHidden = true
         }
         
     }
@@ -232,9 +232,9 @@ open class HSDriveFileViewer: UIViewController, UITableViewDataSource, UITableVi
         segmentedControl.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
         segmentedControl.selectedSegmentIndex = 0
         var segmentedControlButtonItem: UIBarButtonItem? = nil
-
+        
         segmentedControlButtonItem = UIBarButtonItem(customView: segmentedControl)
-   
+        
         self.segmentedControlButtonItem = segmentedControlButtonItem
         
         let doneItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
@@ -344,3 +344,4 @@ open class HSDriveFileViewer: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 }
+

@@ -41,7 +41,7 @@ import UIKit
     
     
     private var viewer: HSDriveFileViewer?
- 
+    
     public class func handle(_ url: URL?) -> Bool {
         _ = HSGIDSignInHandler.sharedInstance
         if GIDSignIn.sharedInstance().handle(url) {
@@ -57,7 +57,7 @@ import UIKit
     
     public init() {
         let viewer = HSDriveFileViewer()
-
+        
         super.init(rootViewController: viewer)
         modalPresentationStyle = UIModalPresentationStyle.pageSheet
         self.viewer = viewer
@@ -66,7 +66,7 @@ import UIKit
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     public func pick(from vc: UIViewController?, withCompletion completion: @escaping (_ manager: HSDriveManager?, _ file: GTLRDrive_File?) -> Void) {
         viewer?.completion = completion
@@ -82,19 +82,20 @@ import UIKit
             completionBlock(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL, userInfo: nil))
             return
         }
-            let fetcher = service?.fetcherService.fetcher(with: downloadURL)
-            
+        let fetcher = service?.fetcherService.fetcher(with: downloadURL)
+        
         fetcher?.beginFetch(completionHandler: { data, error in
-                if error == nil {
-                    // Success.
-                    completionBlock(data, nil)
-                } else {
-                    if let error = error {
-                        print("An error occurred: \(error)")
-                    }
-                    completionBlock(nil, error!)
+            if error == nil {
+                // Success.
+                completionBlock(data, nil)
+            } else {
+                if let error = error {
+                    print("An error occurred: \(error)")
                 }
-            })
-
+                completionBlock(nil, error!)
+            }
+        })
+        
     }
 }
+
