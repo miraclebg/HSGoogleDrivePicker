@@ -95,6 +95,7 @@ private let kKeychainItemName = "Drive API"
         let query = GTLRDriveQuery_FilesList.query()
         
         query.q = self.filterQuery
+        query.orderBy = "folder,name"
         query.fields = "files(id,kind,mimeType,name,size,iconLink)"
         
         
